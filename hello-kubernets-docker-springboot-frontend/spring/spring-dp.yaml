@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-mongo
+spec:
+  selector:
+      matchLabels:
+        app: spring-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-mongo
+    spec:
+      containers:
+        - name: spring-mongo
+          image: springboot-mongo
+          ports:
+          - containerPort: 8080
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: password
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf  
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf 
+                  key: host

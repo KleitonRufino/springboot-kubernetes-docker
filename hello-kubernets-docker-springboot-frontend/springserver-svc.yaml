@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: springserver-service
+spec:
+  selector:
+    app: springserver
+  ports:
+  - protocol: TCP
+    port: 8080
+  type: LoadBalancer
