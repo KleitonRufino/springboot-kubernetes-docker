@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring-mongo-service
+spec:
+  selector:
+    app: spring-mongo
+  ports:
+  - protocol: TCP
+    port: 8080
+  type: NodePort

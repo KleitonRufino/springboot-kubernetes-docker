@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  api-database: 
+    image: mongo:3.6.21-xenial
+    container_name: "api-database"
+    restart: always
+    ports:
+      - 27017:27017
+    command: --smallfiles
+  api:
+    image: kleitonarufino/springboot-mongo
+    build: .
+    restart: always
+    environment: 
+      TZ: America/Sao_Paulo
+      SPRING_BOOT_ENVIRONMENT: Production
+    ports: 
+      - 8080:8080
+    command: mvn spring-boot:run
+    links:
+      - api-database 
+    depends_on:
+      - api-database  

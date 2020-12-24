@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-spring-mongo
+spec:
+  selector:
+      matchLabels:
+        app: consumer-spring-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consumer-spring-mongo
+    spec:
+      containers:
+        - name: spring-mongo
+          image: kleitonarufino/consumer-springboot-mongo:0.3
+          ports:
+          - containerPort: 8080
